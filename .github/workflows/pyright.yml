@@ -13,15 +13,18 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 jobs:
-  linter_name:
-    name: runner / black formatter
+  pyright:
+    name: Type Checking / pyright
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: jordemort/action-pyright@v1
+      - name: Run pyright    
+        uses: jakebailey/pyright-action@v1.1.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }} # You need this
-          reporter: github-pr-review # Change reporter.
-      - uses: ricardochaves/python-lint@v1.4.0
-        with:
-          python-root-list: ${{ secrets.PACKAGE }}
+          working-directory: src          
+          project: pyproject.toml
+          verify-types: azure          
+#       - uses: jordemort/action-pyright@v1
+#         with:
+#           github_token: ${{ secrets.GITHUB_TOKEN }} # You need this
+#           reporter: github-pr-review # Change reporter.

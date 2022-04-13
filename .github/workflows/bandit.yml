@@ -1,0 +1,16 @@
+name: Bandit
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  bandit:
+    name: Static Analysis / Bandit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Bandit Check
+        uses: jpetrucciani/bandit-check@1.6.2
