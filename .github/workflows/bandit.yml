@@ -1,4 +1,4 @@
-name: Bandit
+name: Security Analysis / Bandit
 on:
   push:
     branches: [ main ]
@@ -8,7 +8,6 @@ on:
 
 jobs:
   bandit:
-    name: Security Analysis
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
