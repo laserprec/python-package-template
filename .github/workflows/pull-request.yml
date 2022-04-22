@@ -1,0 +1,64 @@
+name: Pull Request
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  bandit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Bandit Check
+        uses: jpetrucciani/bandit-check@1.6.2
+  pylint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dciborow/action-pylint@0.0.3
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review    
+          workdir: src
+          level: warning
+  pyright:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: jordemort/action-pyright@v1
+        with:
+          workdir: src
+          github_token: ${{ secrets.GITHUB_TOKEN }} # You need this
+          reporter: github-pr-review # Change reporter.
+      - uses: jakebailey/pyright-action@v1.1.0
+        with:
+          working-directory: src          
+          project: pyproject.toml
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v1
+      with:
+        python-version: '3.x'
+    - run: |
+        python -m pip install --upgrade pip
+        python -m pip install pytest flit
+
+        python -m flit install
+        python -m pytest tests
+  style-guide:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: wemake-python-styleguide
+        uses: wemake-services/wemake-python-styleguide@0.15.3
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          path: ${{ secrets.PACKAGE }}
+          reporter: github-pr-review
+        
+          
