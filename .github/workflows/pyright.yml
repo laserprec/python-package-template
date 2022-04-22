@@ -1,30 +1,24 @@
-# This is a basic workflow to help you get started with Actions
+name: Pyright
 
-name: pyright
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+
 jobs:
   pyright:
-    name: Type Checking / pyright
+    name: Type Checking
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Run pyright    
-        uses: jakebailey/pyright-action@v1.1.0
+      - uses: jordemort/action-pyright@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }} # You need this
+          reporter: github-pr-review # Change reporter.
+      - uses: jakebailey/pyright-action@v1.1.0
         with:
           working-directory: src          
           project: pyproject.toml
           verify-types: azure          
-#       - uses: jordemort/action-pyright@v1
-#         with:
-#           github_token: ${{ secrets.GITHUB_TOKEN }} # You need this
-#           reporter: github-pr-review # Change reporter.
