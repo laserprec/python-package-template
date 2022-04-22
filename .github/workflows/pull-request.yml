@@ -20,7 +20,6 @@ jobs:
           level: warning
       - uses: jakebailey/pyright-action@v1.1.0
         with:
-          working-directory: src          
           project: pyproject.toml
       - uses: wemake-services/wemake-python-styleguide@0.15.3
         env:
