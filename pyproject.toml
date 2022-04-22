@@ -44,7 +44,7 @@ exclude_dirs = ["build","dist","tests","scripts"]
 number = 4
 recursive = true
 skips = "B110,B311,B314,B404,B405,B406"
-targets = "ai_python_package"
+targets = "src"
 
 [tool.black]
 line-length = 120
