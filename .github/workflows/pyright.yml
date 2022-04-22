@@ -21,4 +21,3 @@ jobs:
         with:
           working-directory: src          
           project: pyproject.toml
-          verify-types: azure          
