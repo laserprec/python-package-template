@@ -18,12 +18,6 @@ jobs:
           reporter: github-pr-review    
           workdir: src
           level: warning
-      - uses: jordemort/action-pyright@v1
-        with:
-          workdir: src
-          project: pyproject.toml
-          github_token: ${{ secrets.GITHUB_TOKEN }} # You need this
-          reporter: github-pr-review # Change reporter.
       - uses: jakebailey/pyright-action@v1.1.0
         with:
           working-directory: src          
