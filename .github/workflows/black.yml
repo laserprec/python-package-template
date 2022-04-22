@@ -1,4 +1,4 @@
-name: Black
+name: Black / Auto Formatter
 
 on:
   push:
@@ -9,7 +9,6 @@ on:
 
 jobs:
   black:
-    name: Auto Formatter
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
