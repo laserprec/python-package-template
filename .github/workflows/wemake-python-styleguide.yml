@@ -1,18 +1,13 @@
 name: wemake-python-styleguide
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
   workflow_dispatch:
+
 jobs:
-  build:
+  style-guide:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
       - name: wemake-python-styleguide
         uses: wemake-services/wemake-python-styleguide@0.15.3
         env:
