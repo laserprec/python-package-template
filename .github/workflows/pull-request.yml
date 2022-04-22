@@ -7,26 +7,17 @@ on:
   workflow_dispatch:
 
 jobs:
-  bandit:
+  linting:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Bandit Check
-        uses: jpetrucciani/bandit-check@1.6.2
-  pylint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+      - uses: jpetrucciani/bandit-check@1.6.2
       - uses: dciborow/action-pylint@0.0.3
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review    
           workdir: src
           level: warning
-  pyright:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
       - uses: jordemort/action-pyright@v1
         with:
           workdir: src
@@ -36,7 +27,14 @@ jobs:
         with:
           working-directory: src          
           project: pyproject.toml
-  pytest:
+      - uses: wemake-services/wemake-python-styleguide@0.15.3
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          path: src
+          reporter: github-pr-review
+          
+  testing:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -49,16 +47,4 @@ jobs:
 
         python -m flit install
         python -m pytest tests
-  style-guide:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: wemake-python-styleguide
-        uses: wemake-services/wemake-python-styleguide@0.15.3
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          path: ${{ secrets.PACKAGE }}
-          reporter: github-pr-review
-        
           
