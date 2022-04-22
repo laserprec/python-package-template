@@ -1,4 +1,4 @@
-name: Pyright
+name: Pyright / Type Checking
 
 on:
   push:
@@ -9,7 +9,6 @@ on:
 
 jobs:
   pyright:
-    name: Type Checking
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
