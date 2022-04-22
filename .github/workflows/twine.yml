@@ -1,4 +1,4 @@
-name: Upload Python Package
+name: Twine / Publish PyPi Package
 
 on:
   release:
