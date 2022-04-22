@@ -1,4 +1,4 @@
-name: Test Upload Python Package
+name: Twine / Publish to Test PyPi
 
 on:
   workflow_dispatch
