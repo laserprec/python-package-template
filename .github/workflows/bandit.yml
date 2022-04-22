@@ -8,7 +8,7 @@ on:
 
 jobs:
   bandit:
-    name: Static Analysis
+    name: Security Analysis
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
